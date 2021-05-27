@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { ChallengesContext } from "./ChallengesContext";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { startNewChallenge } from '../store/modules/challenges/actions';
 
 interface CountdownContextData {
   minutes: number;
@@ -19,8 +20,8 @@ export const CountdownContext = createContext({} as CountdownContextData)
 let countdownTimeout: NodeJS.Timeout;
 
 export function CountdownProvider({ children }: CountdownProviderProps) {
-  const { startNewChallenge } = useContext(ChallengesContext);
-
+  const dispatch = useDispatch();
+  
   const [time, setTime] = useState(0.1 * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
@@ -47,7 +48,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
     } else if (isActive && time == 0) {
       setHasFinished(true);
       setIsActive(false);
-      startNewChallenge();
+      dispatch(startNewChallenge());
     }
   }, [isActive, time])
 

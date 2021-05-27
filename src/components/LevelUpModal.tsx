@@ -1,10 +1,11 @@
-import { useContext } from 'react'
-import { ChallengesContext } from '../contexts/ChallengesContext'
-import styles from '../styles/components/LevelUpModal.module.css'
+import { useSelector } from 'react-redux';
+import { IState } from '../store';
+import { ChallengeState } from '../store/modules/challenges/types';
+import styles from '../styles/components/LevelUpModal.module.css';
 
 function LevelUpModal() {
-  const { level, closeLevelUpModal } = useContext(ChallengesContext);
-
+  const { level } = useSelector<IState, ChallengeState>(state => state.challenges);
+  // , closeLevelUpModal
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>

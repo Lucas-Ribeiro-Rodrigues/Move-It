@@ -1,21 +1,25 @@
 import { useContext } from 'react';
-
-import { ChallengesContext } from '../contexts/ChallengesContext';
+import { useDispatch, useSelector } from 'react-redux';
 import { CountdownContext } from '../contexts/CountdownContext';
-
+import { IState } from '../store';
+import { completeChallenge, resetChallenge } from '../store/modules/challenges/actions';
+import { ChallengeState } from '../store/modules/challenges/types';
 import styles from '../styles/components/ChallengeBox.module.css';
 
+
+
 function ChallengeBox() {
-  const { activeChallenge, resetChallenge, completeChallenge } = useContext(ChallengesContext);
+  const dispatch = useDispatch();
+  const { activeChallenge } = useSelector<IState, ChallengeState>(state => state.challenges);
   const { resetCountdown } = useContext(CountdownContext);
 
   function handleChallengeSucceeded() {
-    completeChallenge();
+    dispatch(completeChallenge());
     resetCountdown();
   }
 
   function handleChallengeFailed() {
-    resetChallenge();
+    dispatch(resetChallenge());
     resetCountdown();
   }
 

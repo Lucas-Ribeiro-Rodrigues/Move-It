@@ -1,9 +1,10 @@
-import { useContext } from 'react';
-import { ChallengesContext } from '../contexts/ChallengesContext';
+import { useSelector } from 'react-redux';
+import { IState } from '../store';
+import { ChallengeState } from '../store/modules/challenges/types';
 import styles from '../styles/components/CompletedChallenges.module.css';
 
 function CompletedChallenges() {
-  const { challengesCompleted } = useContext(ChallengesContext);
+  const { challengesCompleted } = useSelector<IState, ChallengeState>(state => state.challenges);
 
   return (
     <div className={styles.completedChallengesContainer}>

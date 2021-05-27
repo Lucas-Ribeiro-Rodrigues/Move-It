@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { ChallengesContext } from '../contexts/ChallengesContext';
+import { useSelector } from 'react-redux';
+import { IState } from '../store';
 import styles from '../styles/components/Profile.module.css';
 
 function Profile() {
-  const { level } = useContext(ChallengesContext);
+  const level = useSelector<IState, number>(state => state.challenges.level);
 
   return (
     <div className={styles.profileContainer}>

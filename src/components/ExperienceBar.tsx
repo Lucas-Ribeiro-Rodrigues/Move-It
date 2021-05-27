@@ -1,11 +1,12 @@
-import { useContext } from 'react';
-
-import { ChallengesContext } from '../contexts/ChallengesContext';
-
+import { useSelector } from 'react-redux';
+import { IState } from '../store';
+import { ChallengeState } from '../store/modules/challenges/types';
 import styles from '../styles/components/ExperienceBar.module.css';
 
+
+
 export function ExperienceBar() {
-	const { currentExperience, experienceToNextLevel } = useContext(ChallengesContext);
+	const { currentExperience, experienceToNextLevel } = useSelector<IState, ChallengeState>(state => state.challenges);
 
 	const percentToNextLevel = Math.round((currentExperience * 100) / experienceToNextLevel);
 
